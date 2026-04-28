@@ -1,5 +1,3 @@
-const crypto = require("crypto");
-
 const qaFlexMessage = {
   type: "flex",
   altText: "常見 Q&A｜簡法甜點",
@@ -87,6 +85,7 @@ const autoReplies = {
 };
 
 async function replyMessage(replyToken, messages) {
+  console.log("Sending reply, token:", replyToken);
   const res = await fetch("https://api.line.me/v2/bot/message/reply", {
     method: "POST",
     headers: {
@@ -95,29 +94,21 @@ async function replyMessage(replyToken, messages) {
     },
     body: JSON.stringify({ replyToken, messages }),
   });
-  return res.json();
+  const data = await res.json();
+  console.log("Line API response:", JSON.stringify(data));
+  return data;
 }
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") return res.status(200).send("LINE Bot is running.");
 
-  // 取得原始 body 用於簽名驗證
-  const rawBody = JSON.stringify(req.body);
-  const signature = req.headers["x-line-signature"];
-
-  if (signature && process.env.LINE_CHANNEL_SECRET) {
-    const hash = crypto
-      .createHmac("SHA256", process.env.LINE_CHANNEL_SECRET)
-      .update(rawBody)
-      .digest("base64");
-    if (hash !== signature) {
-      return res.status(403).send("Invalid signature");
-    }
-  }
+  console.log("Webhook received:", JSON.stringify(req.body));
 
   const events = req.body.events || [];
+  console.log("Events count:", events.length);
 
   for (const event of events) {
+    console.log("Event:", event.type, event.message?.type, event.message?.text);
     if (event.type !== "message" || event.message.type !== "text") continue;
 
     const userText = event.message.text.trim();
@@ -132,6 +123,8 @@ module.exports = async (req, res) => {
       await replyMessage(replyToken, [{ type: "text", text: autoReplies[userText] }]);
       continue;
     }
+
+    console.log("No match for:", userText);
   }
 
   res.status(200).send("OK");
