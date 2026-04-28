@@ -1,15 +1,5 @@
 const crypto = require("crypto");
 
-// 驗證 Line 簽名
-function validateSignature(body, signature, secret) {
-  const hash = crypto
-    .createHmac("SHA256", secret)
-    .update(body)
-    .digest("base64");
-  return hash === signature;
-}
-
-// 常見 Q&A Flex Message
 const qaFlexMessage = {
   type: "flex",
   altText: "常見 Q&A｜簡法甜點",
@@ -22,87 +12,30 @@ const qaFlexMessage = {
         header: {
           type: "box",
           layout: "vertical",
-          contents: [
-            {
-              type: "image",
-              url: "https://res.cloudinary.com/dxk4wyejt/image/upload/v1777286115/2_mufolb.png",
-              size: "full",
-              aspectMode: "cover",
-              aspectRatio: "1.5:1",
-            },
-          ],
+          contents: [{ type: "image", url: "https://res.cloudinary.com/dxk4wyejt/image/upload/v1777286115/2_mufolb.png", size: "full", aspectMode: "cover", aspectRatio: "1.5:1" }],
           paddingAll: "0px",
         },
         body: {
-          type: "box",
-          layout: "vertical",
-          backgroundColor: "#faf8f2",
-          paddingAll: "18px",
+          type: "box", layout: "vertical", backgroundColor: "#faf8f2", paddingAll: "18px",
           contents: [
-            {
-              type: "box",
-              layout: "vertical",
-              contents: [
-                {
-                  type: "text",
-                  text: "常見 Q&A",
-                  weight: "bold",
-                  size: "lg",
-                  color: "#3a4258",
-                },
-                {
-                  type: "text",
-                  text: "如有其他疑問請直接私訊詢問，謝謝～",
-                  size: "xs",
-                  color: "#8890a8",
-                  margin: "sm",
-                  wrap: true,
-                },
-              ],
-            },
+            { type: "box", layout: "vertical", contents: [
+              { type: "text", text: "常見 Q&A", weight: "bold", size: "lg", color: "#3a4258" },
+              { type: "text", text: "如有其他疑問請直接私訊詢問，謝謝～", size: "xs", color: "#8890a8", margin: "sm", wrap: true },
+            ]},
             { type: "separator", margin: "lg", color: "#e4ddd0" },
-            {
-              type: "box",
-              layout: "vertical",
-              margin: "lg",
-              spacing: "sm",
-              contents: [
-                {
-                  type: "button",
-                  action: { type: "message", label: "📍 地址、電話、營業時間", text: "地址" },
-                  style: "secondary", color: "#3a4258", height: "sm", adjustMode: "shrink-to-fit",
-                },
-                {
-                  type: "button",
-                  action: { type: "message", label: "📅 訂位與甜點預留", text: "訂位" },
-                  style: "secondary", color: "#3a4258", height: "sm", adjustMode: "shrink-to-fit",
-                },
-                {
-                  type: "button",
-                  action: { type: "message", label: "🛵 外送說明", text: "外送" },
-                  style: "secondary", color: "#3a4258", height: "sm", adjustMode: "shrink-to-fit",
-                },
-                {
-                  type: "button",
-                  action: { type: "message", label: "💳 付款方式", text: "付款" },
-                  style: "secondary", color: "#3a4258", height: "sm", adjustMode: "shrink-to-fit",
-                },
-              ],
-            },
+            { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: [
+              { type: "button", action: { type: "message", label: "📍 地址、電話、營業時間", text: "地址" }, style: "secondary", color: "#3a4258", height: "sm", adjustMode: "shrink-to-fit" },
+              { type: "button", action: { type: "message", label: "📅 訂位與甜點預留", text: "訂位" }, style: "secondary", color: "#3a4258", height: "sm", adjustMode: "shrink-to-fit" },
+              { type: "button", action: { type: "message", label: "🛵 外送說明", text: "外送" }, style: "secondary", color: "#3a4258", height: "sm", adjustMode: "shrink-to-fit" },
+              { type: "button", action: { type: "message", label: "💳 付款方式", text: "付款" }, style: "secondary", color: "#3a4258", height: "sm", adjustMode: "shrink-to-fit" },
+            ]},
           ],
         },
         footer: {
-          type: "box",
-          layout: "vertical",
-          backgroundColor: "#faf8f2",
-          paddingAll: "12px",
+          type: "box", layout: "vertical", backgroundColor: "#faf8f2", paddingAll: "12px",
           contents: [
             { type: "separator", color: "#e4ddd0", margin: "none" },
-            {
-              type: "button",
-              action: { type: "uri", label: "💬 直接私訊我們", uri: "https://line.me/ti/p/@你的LineID" },
-              style: "link", color: "#8890a8", margin: "sm",
-            },
+            { type: "button", action: { type: "uri", label: "💬 直接私訊我們", uri: "https://line.me/ti/p/@你的LineID" }, style: "link", color: "#8890a8", margin: "sm" },
           ],
         },
       },
@@ -110,89 +43,31 @@ const qaFlexMessage = {
         type: "bubble",
         size: "mega",
         header: {
-          type: "box",
-          layout: "vertical",
-          contents: [
-            {
-              type: "image",
-              url: "https://res.cloudinary.com/dxk4wyejt/image/upload/v1777286115/1_tl8cd5.png",
-              size: "full",
-              aspectMode: "cover",
-              aspectRatio: "1.5:1",
-            },
-          ],
+          type: "box", layout: "vertical",
+          contents: [{ type: "image", url: "https://res.cloudinary.com/dxk4wyejt/image/upload/v1777286115/1_tl8cd5.png", size: "full", aspectMode: "cover", aspectRatio: "1.5:1" }],
           paddingAll: "0px",
         },
         body: {
-          type: "box",
-          layout: "vertical",
-          backgroundColor: "#faf8f2",
-          paddingAll: "18px",
+          type: "box", layout: "vertical", backgroundColor: "#faf8f2", paddingAll: "18px",
           contents: [
-            {
-              type: "box",
-              layout: "vertical",
-              contents: [
-                {
-                  type: "text",
-                  text: "蛋糕相關 Q&A",
-                  weight: "bold",
-                  size: "lg",
-                  color: "#3a4258",
-                },
-                {
-                  type: "text",
-                  text: "關於蛋糕訂購的常見問題",
-                  size: "xs",
-                  color: "#8890a8",
-                  margin: "sm",
-                  wrap: true,
-                },
-              ],
-            },
+            { type: "box", layout: "vertical", contents: [
+              { type: "text", text: "蛋糕相關 Q&A", weight: "bold", size: "lg", color: "#3a4258" },
+              { type: "text", text: "關於蛋糕訂購的常見問題", size: "xs", color: "#8890a8", margin: "sm", wrap: true },
+            ]},
             { type: "separator", margin: "lg", color: "#e4ddd0" },
-            {
-              type: "box",
-              layout: "vertical",
-              margin: "lg",
-              spacing: "sm",
-              contents: [
-                {
-                  type: "button",
-                  action: { type: "message", label: "🎂 如何預訂蛋糕", text: "預訂蛋糕" },
-                  style: "secondary", color: "#6b4a30", height: "sm", adjustMode: "shrink-to-fit",
-                },
-                {
-                  type: "button",
-                  action: { type: "message", label: "🍰 蛋糕品項", text: "蛋糕品項" },
-                  style: "secondary", color: "#6b4a30", height: "sm", adjustMode: "shrink-to-fit",
-                },
-                {
-                  type: "button",
-                  action: { type: "message", label: "✨ 客製化蛋糕、馬卡龍", text: "客製化" },
-                  style: "secondary", color: "#6b4a30", height: "sm", adjustMode: "shrink-to-fit",
-                },
-                {
-                  type: "button",
-                  action: { type: "message", label: "📦 蛋糕外送、宅配", text: "外送宅配" },
-                  style: "secondary", color: "#6b4a30", height: "sm", adjustMode: "shrink-to-fit",
-                },
-              ],
-            },
+            { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: [
+              { type: "button", action: { type: "message", label: "🎂 如何預訂蛋糕", text: "預訂蛋糕" }, style: "secondary", color: "#6b4a30", height: "sm", adjustMode: "shrink-to-fit" },
+              { type: "button", action: { type: "message", label: "🍰 蛋糕品項", text: "蛋糕品項" }, style: "secondary", color: "#6b4a30", height: "sm", adjustMode: "shrink-to-fit" },
+              { type: "button", action: { type: "message", label: "✨ 客製化蛋糕、馬卡龍", text: "客製化" }, style: "secondary", color: "#6b4a30", height: "sm", adjustMode: "shrink-to-fit" },
+              { type: "button", action: { type: "message", label: "📦 蛋糕外送、宅配", text: "外送宅配" }, style: "secondary", color: "#6b4a30", height: "sm", adjustMode: "shrink-to-fit" },
+            ]},
           ],
         },
         footer: {
-          type: "box",
-          layout: "vertical",
-          backgroundColor: "#faf8f2",
-          paddingAll: "12px",
+          type: "box", layout: "vertical", backgroundColor: "#faf8f2", paddingAll: "12px",
           contents: [
             { type: "separator", color: "#e4ddd0", margin: "none" },
-            {
-              type: "button",
-              action: { type: "uri", label: "💬 直接私訊我們", uri: "https://line.me/ti/p/@你的LineID" },
-              style: "link", color: "#8890a8", margin: "sm",
-            },
+            { type: "button", action: { type: "uri", label: "💬 直接私訊我們", uri: "https://line.me/ti/p/@你的LineID" }, style: "link", color: "#8890a8", margin: "sm" },
           ],
         },
       },
@@ -200,7 +75,6 @@ const qaFlexMessage = {
   },
 };
 
-// 各按鈕對應的自動回覆內容 — 請自行填入實際內容
 const autoReplies = {
   地址: "📍 地址：台灣某市某區某路1號\n📞 電話：02-1234-5678\n🕐 營業時間：週二至週日 12:00–20:00（週一公休）",
   訂位: "📅 訂位說明\n目前提供電話訂位，請來電 02-1234-5678\n或直接私訊我們預留～",
@@ -213,7 +87,7 @@ const autoReplies = {
 };
 
 async function replyMessage(replyToken, messages) {
-  const response = await fetch("https://api.line.me/v2/bot/message/reply", {
+  const res = await fetch("https://api.line.me/v2/bot/message/reply", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -221,19 +95,24 @@ async function replyMessage(replyToken, messages) {
     },
     body: JSON.stringify({ replyToken, messages }),
   });
-  return response.json();
+  return res.json();
 }
 
 module.exports = async (req, res) => {
-  if (req.method !== "POST") {
-    return res.status(200).send("LINE Bot is running.");
-  }
+  if (req.method !== "POST") return res.status(200).send("LINE Bot is running.");
 
-  // 驗證簽名
-  const signature = req.headers["x-line-signature"];
+  // 取得原始 body 用於簽名驗證
   const rawBody = JSON.stringify(req.body);
-  if (!validateSignature(rawBody, signature, process.env.LINE_CHANNEL_SECRET)) {
-    return res.status(403).send("Invalid signature");
+  const signature = req.headers["x-line-signature"];
+
+  if (signature && process.env.LINE_CHANNEL_SECRET) {
+    const hash = crypto
+      .createHmac("SHA256", process.env.LINE_CHANNEL_SECRET)
+      .update(rawBody)
+      .digest("base64");
+    if (hash !== signature) {
+      return res.status(403).send("Invalid signature");
+    }
   }
 
   const events = req.body.events || [];
@@ -244,17 +123,13 @@ module.exports = async (req, res) => {
     const userText = event.message.text.trim();
     const replyToken = event.replyToken;
 
-    // 觸發 QA 選單
-    if (userText === "QA" || userText === "常見問題") {
+    if (userText === "QA" || userText === "常見問題" || userText === "qa") {
       await replyMessage(replyToken, [qaFlexMessage]);
       continue;
     }
 
-    // 各按鈕關鍵字回覆
     if (autoReplies[userText]) {
-      await replyMessage(replyToken, [
-        { type: "text", text: autoReplies[userText] },
-      ]);
+      await replyMessage(replyToken, [{ type: "text", text: autoReplies[userText] }]);
       continue;
     }
   }
