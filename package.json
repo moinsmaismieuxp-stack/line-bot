@@ -4,6 +4,6 @@
   "description": "簡法甜點 Line Bot",
   "main": "api/webhook.js",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   }
 }
