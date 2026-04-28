@@ -95,7 +95,8 @@ module.exports = async (req, res) => {
     const userText = event.message.text.trim();
     const replyToken = event.replyToken;
 
-    if (userText === "常見問題") {
+    // includes 判斷，避免隱藏字元問題
+    if (userText.includes("常見問題")) {
       await replyMessage(replyToken, [qaFlexMessage]);
     }
   }
