@@ -90,18 +90,13 @@ module.exports = async (req, res) => {
 
   const events = req.body.events || [];
 
-  // 先立刻回應 200，避免 Token 過期
+  // 先回應 200
   res.status(200).send("OK");
 
-  // 再非同步處理每個事件
   for (const event of events) {
     if (event.type !== "message" || event.message.type !== "text") continue;
 
-    const userText = event.message.text.trim();
-    const replyToken = event.replyToken;
-
-    if (userText === "常見問題") {
-      await replyMessage(replyToken, [qaFlexMessage]);
-    }
+    // 暫時：任何文字訊息都回覆 Flex Message（測試用）
+    await replyMessage(event.replyToken, [qaFlexMessage]);
   }
 };
