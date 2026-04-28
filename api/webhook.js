@@ -73,20 +73,24 @@ const qaFlexMessage = {
   },
 };
 
-async function replyMessage(replyToken, messages) {
-  const res = await fetch("https://api.line.me/v2/bot/message/reply", {
+// Push Message API — 不依賴 Reply Token，不會過期
+async function pushMessage(userId, messages) {
+  const res = await fetch("https://api.line.me/v2/bot/message/push", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
     },
-    body: JSON.stringify({ replyToken, messages }),
+    body: JSON.stringify({ to: userId, messages }),
   });
   return res.json();
 }
 
 module.exports = async (req, res) => {
-  if (req.method !== "POST") return res.status(200).send("LINE Bot is running.");
+  // 先回應 200 給 Line，避免 Token 過期
+  res.status(200).send("OK");
+
+  if (req.method !== "POST") return;
 
   const events = req.body.events || [];
 
@@ -94,13 +98,11 @@ module.exports = async (req, res) => {
     if (event.type !== "message" || event.message.type !== "text") continue;
 
     const userText = event.message.text.trim();
-    const replyToken = event.replyToken;
+    const userId = event.source.userId;
 
-    // 只處理「常見問題」，其餘全部交給 Line 後台自動回覆
+    // 只處理「常見問題」，其餘交給 Line 後台自動回覆
     if (userText === "常見問題") {
-      await replyMessage(replyToken, [qaFlexMessage]);
+      await pushMessage(userId, [qaFlexMessage]);
     }
   }
-
-  res.status(200).send("OK");
 };
