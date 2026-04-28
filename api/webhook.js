@@ -1,3 +1,15 @@
+async function replyMessage(replyToken, messages) {
+  const res = await fetch("https://api.line.me/v2/bot/message/reply", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
+    },
+    body: JSON.stringify({ replyToken, messages }),
+  });
+  return res.json();
+}
+
 const qaFlexMessage = {
   type: "flex",
   altText: "常見 Q&A｜簡法甜點",
@@ -8,8 +20,7 @@ const qaFlexMessage = {
         type: "bubble",
         size: "mega",
         header: {
-          type: "box",
-          layout: "vertical",
+          type: "box", layout: "vertical",
           contents: [{ type: "image", url: "https://res.cloudinary.com/dxk4wyejt/image/upload/v1777286115/2_mufolb.png", size: "full", aspectMode: "cover", aspectRatio: "1.5:1" }],
           paddingAll: "0px",
         },
@@ -73,24 +84,10 @@ const qaFlexMessage = {
   },
 };
 
-async function replyMessage(replyToken, messages) {
-  const res = await fetch("https://api.line.me/v2/bot/message/reply", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
-    },
-    body: JSON.stringify({ replyToken, messages }),
-  });
-  return res.json();
-}
-
 module.exports = async (req, res) => {
   if (req.method !== "POST") return res.status(200).send("LINE Bot is running.");
 
   const events = req.body.events || [];
-
-  res.status(200).send("OK");
 
   for (const event of events) {
     if (event.type !== "message" || event.message.type !== "text") continue;
@@ -102,4 +99,6 @@ module.exports = async (req, res) => {
       await replyMessage(replyToken, [qaFlexMessage]);
     }
   }
+
+  res.status(200).send("OK");
 };
