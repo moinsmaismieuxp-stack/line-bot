@@ -73,36 +73,35 @@ const qaFlexMessage = {
   },
 };
 
-// Push Message API — 不依賴 Reply Token，不會過期
-async function pushMessage(userId, messages) {
-  const res = await fetch("https://api.line.me/v2/bot/message/push", {
+async function replyMessage(replyToken, messages) {
+  const res = await fetch("https://api.line.me/v2/bot/message/reply", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
     },
-    body: JSON.stringify({ to: userId, messages }),
+    body: JSON.stringify({ replyToken, messages }),
   });
   return res.json();
 }
 
 module.exports = async (req, res) => {
-  // 先回應 200 給 Line，避免 Token 過期
-  res.status(200).send("OK");
-
-  if (req.method !== "POST") return;
+  if (req.method !== "POST") return res.status(200).send("LINE Bot is running.");
 
   const events = req.body.events || [];
 
+  // 先立刻回應 200，避免 Token 過期
+  res.status(200).send("OK");
+
+  // 再非同步處理每個事件
   for (const event of events) {
     if (event.type !== "message" || event.message.type !== "text") continue;
 
     const userText = event.message.text.trim();
-    const userId = event.source.userId;
+    const replyToken = event.replyToken;
 
-    // 只處理「常見問題」，其餘交給 Line 後台自動回覆
     if (userText === "常見問題") {
-      await pushMessage(userId, [qaFlexMessage]);
+      await replyMessage(replyToken, [qaFlexMessage]);
     }
   }
 };
