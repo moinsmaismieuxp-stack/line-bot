@@ -46,7 +46,7 @@ const qaFlexMessage = {
           type: "box", layout: "vertical", backgroundColor: "#faf8f2", paddingAll: "12px",
           contents: [
             { type: "separator", color: "#e4ddd0", margin: "none" },
-            { type: "button", action: { type: "uri", label: "💬 直接私訊我們", uri: "https://line.me/ti/p/@你的LineID" }, style: "link", color: "#8890a8", margin: "sm" },
+            { type: "button", action: { type: "uri", label: "💬 直接私訊我們", uri: "https://line.me/ti/p/@444vraqq" }, style: "link", color: "#8890a8", margin: "sm" },
           ],
         },
       },
@@ -78,7 +78,7 @@ const qaFlexMessage = {
           type: "box", layout: "vertical", backgroundColor: "#faf8f2", paddingAll: "12px",
           contents: [
             { type: "separator", color: "#e4ddd0", margin: "none" },
-            { type: "button", action: { type: "uri", label: "💬 直接私訊我們", uri: "https://line.me/ti/p/@你的LineID" }, style: "link", color: "#8890a8", margin: "sm" },
+            { type: "button", action: { type: "uri", label: "💬 直接私訊我們", uri: "https://line.me/ti/p/@444vraqq" }, style: "link", color: "#8890a8", margin: "sm" },
           ],
         },
       },
