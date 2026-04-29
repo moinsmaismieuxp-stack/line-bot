@@ -7,7 +7,9 @@ async function replyMessage(replyToken, messages) {
     },
     body: JSON.stringify({ replyToken, messages }),
   });
-  return res.json();
+  const data = await res.json();
+  console.log("LINE REPLY:", JSON.stringify(data));
+  return data;
 }
 
 const qaFlexMessage = {
